@@ -3,11 +3,21 @@ buildscript {
   def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["AntbrayGromore_kotlinVersion"]
 
   repositories {
+       //mintegral sdk依赖   引入mintegral sdk需要添加此maven
+        maven {
+          url "https://artifact.bytedance.com/repository/pangle"  //穿山甲融合SDK依赖
+        }
+        maven {
+          url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_support/"  //mintegral SDK依赖
+        }
     google()
     mavenCentral()
   }
 
   dependencies {
+  //Gromore自动拉取 Adapre AAR 插件脚本
+      classpath 'com.pangle.cn:mediation-auto-adapter:1.0.3'
+
     classpath "com.android.tools.build:gradle:7.2.1"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -25,6 +35,8 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+// cjs
+apply plugin: 'mediation-auto-adapter'
 
 if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
@@ -83,6 +95,11 @@ android {
 }
 
 repositories {
+  flatDir {
+    dirs 'libs','./libs/adn','./libs/adn/mtg','./libs/adn/sigmob','./libs/adapter'
+  }
+  maven { url 'https://artifact.bytedance.com/repository/AwemeOpenSDK' }
+
   mavenCentral()
   google()
 }
@@ -90,6 +107,54 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
+ //注：adn如果通过aar方式引入，需要把对应的adn aar放到libs目录下，注意aar名称和版本号需要和下面命令行匹配上
+    //需要把对应的adn aar放到libs目录下
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //在您的app项目的build.gradle中添加
+
+    implementation "com.pangle.cn:mediation-sdk:6.3.1.7"
+    //groMore 测试工具，仅在测试阶段使用，请勿带到线上
+//    implementation "com.pangle.cn:mediation-test-tools:6.3.1.7"
+
+    implementation "com.pangle.cn:mediation-admob-adapter:17.2.0.60"
+    implementation "com.pangle.cn:mediation-baidu-adapter:9.36.0"
+    implementation "com.pangle.cn:mediation-gdt-adapter:4.580.1450.1"
+    implementation "com.pangle.cn:mediation-klevin-adapter:2.11.0.3.21"
+    implementation "com.pangle.cn:mediation-ks-adapter:3.3.66.0"
+    implementation "com.pangle.cn:mediation-mintegral-adapter:16.6.57.3"
+    implementation "com.pangle.cn:mediation-sigmob-adapter:4.17.1.3"
+    // adn
+    //admob
+    implementation("com.google.android.gms:play-services-ads:17.2.0")
+
+    //Baidu 百度
+
+//    implementation(name: "Baidu_MobAds_SDK_v9.36", ext: 'aar')
+//    //gdt优量汇
+//    implementation(name: "GDTSDK.unionNormal.4.580.1450", ext: 'aar')
+//    //klevin 游可赢
+//    implementation(name: "klevinSDK_2.11.0.3", ext: 'aar')
+//    //ks快手
+//    implementation(name: "kssdk-ad-3.3.66", ext: 'aar')
+    //mintegral
+    implementation("com.mbridge.msdk.support:videojs:16.6.57")
+    implementation("com.mbridge.msdk.support:mbjscommon:16.6.57")
+    implementation("com.mbridge.msdk.support:playercommon:16.6.57")
+    implementation("com.mbridge.msdk.support:reward:16.6.57")
+    implementation("com.mbridge.msdk.support:videocommon:16.6.57")
+    implementation("com.mbridge.msdk.support:chinasame:16.6.57")
+    implementation("com.mbridge.msdk.support:interstitialvideo:16.6.57")
+    implementation("com.mbridge.msdk.support:mbnative:16.6.57")
+    implementation("com.mbridge.msdk.support:nativeex:16.6.57")
+    implementation("com.mbridge.msdk.support:mbnativeadvanced:16.6.57")
+    implementation("com.mbridge.msdk.support:interstitial:16.6.57")
+    implementation("com.mbridge.msdk.support:mbbanner:16.6.57")
+    implementation("com.mbridge.msdk.support:mbsplash:16.6.57")
+    implementation("com.mbridge.msdk.support:mbbid:16.6.57")
+    implementation("com.mbridge.msdk.support:newinterstitial:16.6.57")
+    //sigmob
+//    implementation(name: "windAd-4.17.1", ext: 'aar')
+
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion

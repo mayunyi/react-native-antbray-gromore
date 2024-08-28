@@ -1,22 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { initGroMore, multiply } from './config';
+import { startRewardVideo } from './RewardVideo';
 
-const LINKING_ERROR =
-  `The package 'react-native-antbray-gromore' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
-
-const AntbrayGromore = NativeModules.AntbrayGromore
-  ? NativeModules.AntbrayGromore
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return AntbrayGromore.multiply(a, b);
-}
+export { multiply, initGroMore, startRewardVideo };
