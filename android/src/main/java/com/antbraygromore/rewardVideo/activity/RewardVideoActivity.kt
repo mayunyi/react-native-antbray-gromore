@@ -41,7 +41,7 @@ class RewardVideoActivity: Activity()  {
           val codeId = extras!!.getString("codeId")
           val ttAdManager: TTAdManager = TTAdManagerHolder.get()
           TTAdManagerHolder.get().requestPermissionIfNecessary(this)
-          mTTAdNative = ttAdManager.createAdNative(applicationContext)
+          mTTAdNative = ttAdManager.createAdNative(this)
           if (codeId != null) {
             loadRewardAd(codeId, this)
           } else {
@@ -54,8 +54,8 @@ class RewardVideoActivity: Activity()  {
     }
 
 
-    //构造激励视频广告的Adlsot
-    fun buildRewardAdslot(codeId: String): AdSlot {
+    //构造广告请求AdSlot
+    private fun createAdSlot(codeId: String): AdSlot {
         return AdSlot.Builder()
             .setCodeId(codeId)  //广告位ID
             .setOrientation(TTAdConstant.VERTICAL)  //激励视频方向
@@ -71,10 +71,10 @@ class RewardVideoActivity: Activity()  {
 
     //加载激励视频
     fun loadRewardAd(codeId: String, act: Activity) {
-        //        val adNativeLoader = TTAdSdk.getAdManager().createAdNative(act)
-        //这里为激励视频的简单功能，如需使用复杂功能，如gromore的服务端奖励验证，请参考demo中的AdUtils.kt类中激励部分
+      val adSlot = createAdSlot(codeId)
+      //这里为激励视频的简单功能，如需使用复杂功能，如gromore的服务端奖励验证，请参考demo中的AdUtils.kt类中激励部分
         mTTAdNative?.loadRewardVideoAd(
-            buildRewardAdslot(codeId),
+          adSlot,
             object : TTAdNative.RewardVideoAdListener {
                 override fun onError(errorCode: Int, errorMsg: String?) {
                     //广告加载失败
@@ -114,6 +114,8 @@ class RewardVideoActivity: Activity()  {
                             val ecpm = manager.showEcpm.ecpm //展示广告的价格
                             val sdkName = manager.showEcpm.sdkName  //展示广告的adn名称
                             val slotId = manager.showEcpm.slotId //展示广告的代码位ID
+
+                          Log.i("RewardVideoActivity: onAdShow", "ecpm: $ecpm, sdkName: $sdkName, slotId: $slotId")
                         }
                     }
 

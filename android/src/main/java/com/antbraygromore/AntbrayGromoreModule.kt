@@ -28,7 +28,7 @@ class AntbrayGromoreModule(private val reactContext: ReactApplicationContext) :
       // 配置参数
       TTAdManagerHolder.setTTAdConfig(options);
       // step1: 初始化sdk
-      TTAdManagerHolder.init(reactContext);
+      TTAdManagerHolder.doInit(reactContext);
   }
 
   companion object {

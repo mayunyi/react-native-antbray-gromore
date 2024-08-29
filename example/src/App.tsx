@@ -15,6 +15,7 @@ export default function App() {
     initGroMore({
       appId: '5519001',
       debug: true,
+      useMediation: true,
     });
   }, []);
 
