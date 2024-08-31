@@ -1,4 +1,4 @@
 import { initGroMore, multiply } from './config';
-import { startRewardVideo } from './RewardVideo';
+import { startRewardVideo, rewardVideoEventEmitter } from './RewardVideo';
 
-export { multiply, initGroMore, startRewardVideo };
+export { multiply, initGroMore, startRewardVideo, rewardVideoEventEmitter };

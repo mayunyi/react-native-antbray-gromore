@@ -5,7 +5,9 @@ import {
   multiply,
   initGroMore,
   startRewardVideo,
+  rewardVideoEventEmitter,
 } from 'react-native-antbray-gromore';
+import { AD_EVENT_TYPE } from '../../src/RewardVideo';
 
 export default function App() {
   const [result, setResult] = useState<number | undefined>();
@@ -17,6 +19,60 @@ export default function App() {
       debug: true,
       useMediation: true,
     });
+    const onAdErrorListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onAdError,
+      (event) => {
+        console.log('广告加载失败监听', event);
+      }
+    );
+    const onAdLoadedListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onAdLoaded,
+      (event) => {
+        console.log('广告加载成功监听', event);
+      }
+    );
+    const onAdClickListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onAdClick,
+      (event) => {
+        console.log('广告被点击监听', event);
+      }
+    );
+    const onAdCloseListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onAdClose,
+      (event) => {
+        console.log('广告关闭监听', event);
+      }
+    );
+    const onDYAuthListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onDYAuth,
+      (event) => {
+        console.log('抖音授权监听', event);
+      }
+    );
+    const onRewardArrivedListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onRewardArrived,
+      (event) => {
+        console.log('奖励发放监听', event);
+      }
+    );
+    const onAdShowListener = rewardVideoEventEmitter.addListener(
+      AD_EVENT_TYPE.onAdShow,
+      (event) => {
+        console.log('广告展示信息监听', event);
+      }
+    );
+
+    return () => {
+      onAdErrorListener.remove();
+      onAdLoadedListener.remove();
+      onAdLoadedListener.remove();
+      onAdClickListener.remove();
+
+      onAdCloseListener.remove();
+      onDYAuthListener.remove();
+      onRewardArrivedListener.remove();
+      onAdShowListener.remove();
+    };
   }, []);
 
   const start = () => {
