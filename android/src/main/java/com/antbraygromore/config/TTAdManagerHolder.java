@@ -36,6 +36,8 @@ public class TTAdManagerHolder {
   private static boolean debug = false;
   private static boolean useMediation = false;
 
+  public static String getAppId() { return appId; }
+
   public static TTAdManager get() {
     return TTAdSdk.getAdManager();
   }

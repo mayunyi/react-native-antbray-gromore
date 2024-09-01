@@ -6,8 +6,12 @@ import {
   initGroMore,
   startRewardVideo,
   rewardVideoEventEmitter,
+  startSplash,
+  type SplashParams,
+  splashEventEmitter,
 } from 'react-native-antbray-gromore';
 import { AD_EVENT_TYPE } from '../../src/RewardVideo';
+import { SPLASH_EVENT_TYPE } from '../../src/Splash';
 
 export default function App() {
   const [result, setResult] = useState<number | undefined>();
@@ -62,23 +66,110 @@ export default function App() {
       }
     );
 
+    // 开屏监听
+    const splashListener = SplashListener();
     return () => {
       onAdErrorListener.remove();
       onAdLoadedListener.remove();
       onAdLoadedListener.remove();
       onAdClickListener.remove();
-
       onAdCloseListener.remove();
       onDYAuthListener.remove();
       onRewardArrivedListener.remove();
       onAdShowListener.remove();
+
+      removeSplashListener(splashListener);
     };
   }, []);
 
+  const SplashListener = () => {
+    const onSplashAdShowListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashAdShow,
+      (event) => {
+        console.log('广告显示信息', event);
+      }
+    );
+    const onSplashRenderSuccessListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashRenderSuccess,
+      (event) => {
+        console.log('广告渲染成功监听', event);
+      }
+    );
+    const onSplashLoadFailListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashLoadFail,
+      (event) => {
+        console.log('广告加载失败', event);
+      }
+    );
+    const onSplashRenderFailListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashRenderFail,
+      (event) => {
+        console.log('广告渲染失败', event);
+      }
+    );
+    const onSplashAdCloseListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashAdClose,
+      (event) => {
+        console.log('广告关闭监听', event);
+      }
+    );
+    const onSplashAdClickListener = splashEventEmitter.addListener(
+      SPLASH_EVENT_TYPE.onSplashAdClick,
+      (event) => {
+        console.log('广告被点击监听', event);
+      }
+    );
+
+    return {
+      onSplashAdShowListener,
+      onSplashRenderSuccessListener,
+      onSplashLoadFailListener,
+      onSplashRenderFailListener,
+      onSplashAdClickListener,
+      onSplashAdCloseListener,
+    };
+  };
+
+  const removeSplashListener = (result: {
+    onSplashAdShowListener: any;
+    onSplashRenderSuccessListener: any;
+    onSplashLoadFailListener: any;
+    onSplashRenderFailListener: any;
+    onSplashAdClickListener: any;
+    onSplashAdCloseListener: any;
+  }) => {
+    const {
+      onSplashAdShowListener,
+      onSplashRenderSuccessListener,
+      onSplashLoadFailListener,
+      onSplashRenderFailListener,
+      onSplashAdClickListener,
+      onSplashAdCloseListener,
+    } = result;
+    onSplashAdShowListener.remove();
+    onSplashRenderSuccessListener.remove();
+    onSplashLoadFailListener.remove();
+    onSplashRenderFailListener.remove();
+    onSplashAdClickListener.remove();
+    onSplashAdCloseListener.remove();
+  };
   const start = () => {
     startRewardVideo({
       codeId: '103105952',
     });
+  };
+  const openSplash = () => {
+    const params: SplashParams = {
+      codeId: '103113251',
+      splashShakeButton: true,
+      mediationSplashRequestInfo: {
+        adnName: 'pangle',
+        codeId: '889856223',
+        appId: '5519001',
+        appKey: '',
+      },
+    };
+    startSplash(params);
   };
   return (
     <View style={styles.container}>
@@ -86,6 +177,13 @@ export default function App() {
       <Button
         onPress={start}
         title="Learn More"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+
+      <Button
+        onPress={openSplash}
+        title="开屏"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />

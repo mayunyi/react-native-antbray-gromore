@@ -47,10 +47,10 @@ class RewardVideoActivity: Activity()  {
       if (codeId != null) {
         loadRewardAd(codeId, this)
       } else {
-        Log.e("RewardVideoActivity", "codeId is null")
+        Log.e(NAME, "codeId is null")
       }
     } catch (e: Exception) {
-      Log.e("RewardVideoActivity", "Exception in onCreate", e)
+      Log.e(NAME, "Exception in onCreate", e)
     }
   }
 
