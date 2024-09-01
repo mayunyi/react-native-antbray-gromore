@@ -9,6 +9,7 @@ import {
   startSplash,
   type SplashParams,
   splashEventEmitter,
+  BannerView,
 } from 'react-native-antbray-gromore';
 import { AD_EVENT_TYPE } from '../../src/RewardVideo';
 import { SPLASH_EVENT_TYPE } from '../../src/Splash';
@@ -187,6 +188,12 @@ export default function App() {
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
+
+      <BannerView
+        codeId={'103115330'}
+        imageSize={{ width: 300, height: 200 }}
+        style={styles.banner}
+      />
     </View>
   );
 }
@@ -201,5 +208,10 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  banner: {
+    width: 300,
+    height: 200,
+    backgroundColor: 'red',
   },
 });

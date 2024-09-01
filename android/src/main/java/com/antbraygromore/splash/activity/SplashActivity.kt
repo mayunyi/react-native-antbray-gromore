@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import com.antbraygromore.R
 import com.antbraygromore.config.EventResultImpl
 import com.antbraygromore.config.TTAdManagerHolder

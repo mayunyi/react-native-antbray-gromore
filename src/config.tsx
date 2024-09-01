@@ -35,4 +35,7 @@ const initGroMore = (params: initParams) => {
   AntbrayCjsGromore.initGroMore(params);
 };
 
-export { initGroMore, multiply };
+const isLoadCSJStatus = () => {
+  return AntbrayCjsGromore.isLoadCSJStatus();
+};
+export { initGroMore, multiply, isLoadCSJStatus };

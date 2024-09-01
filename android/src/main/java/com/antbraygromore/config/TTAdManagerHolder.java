@@ -10,6 +10,7 @@ import com.bytedance.sdk.openadsdk.TTAdSdk;
 import com.bytedance.sdk.openadsdk.TTCustomController;
 import com.bytedance.sdk.openadsdk.mediation.init.MediationConfig;
 import com.bytedance.sdk.openadsdk.mediation.init.MediationPrivacyConfig;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +43,9 @@ public class TTAdManagerHolder {
     return TTAdSdk.getAdManager();
   }
 
+  public static void getInit(Promise promise) {
+    promise.resolve(sInit);
+  }
 
   //step1:接入网盟广告sdk的初始化操作，详情见接入文档和穿山甲平台说明
    public static void doInit(Context context) {
@@ -196,5 +200,7 @@ public class TTAdManagerHolder {
       useMediation = options.getBoolean("useMediation");
     }
   }
+
+
 }
 

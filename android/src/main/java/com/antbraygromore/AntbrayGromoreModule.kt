@@ -31,6 +31,11 @@ class AntbrayGromoreModule(private val reactContext: ReactApplicationContext) :
       TTAdManagerHolder.doInit(reactContext);
   }
 
+  @ReactMethod
+  fun isLoadCSJStatus(promise: Promise) {
+    TTAdManagerHolder.getInit(promise)
+  }
+
   companion object {
     const val NAME = "AntbrayGromore"
   }
