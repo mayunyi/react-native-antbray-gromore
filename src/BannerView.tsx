@@ -5,7 +5,7 @@ import {
   Platform,
   requireNativeComponent,
   View,
-  Text,
+  ActivityIndicator,
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { isLoadCSJStatus } from './config';
@@ -37,7 +37,6 @@ const BannerView = (props: BannerAdProps) => {
   const [initSdk, setInitSdk] = useState<boolean>(false);
 
   useEffect(() => {
-    // TODO 简历穿山甲SDK是否初始话
     const timer = setInterval(async () => {
       const isInit = await isLoadCSJStatus();
       if (isInit) {
@@ -45,12 +44,11 @@ const BannerView = (props: BannerAdProps) => {
         setInitSdk(isInit);
       }
     }, 500);
+    return () => clearInterval(timer);
   }, []);
 
   if (!codeId) return null;
-  if (!initSdk) return null;
-
-  console.log('initSdk 成功');
+  if (!initSdk) return <ActivityIndicator size="large" color="#0000ff" />;
 
   const BannerViewManager =
     UIManager.getViewManagerConfig(ComponentName) != null
@@ -61,7 +59,6 @@ const BannerView = (props: BannerAdProps) => {
 
   return (
     <View style={{ ...styleObj }}>
-      <Text>123213</Text>
       <BannerViewManager codeId={codeId} imageSize={imageSize} />
     </View>
   );

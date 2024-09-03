@@ -191,7 +191,7 @@ export default function App() {
 
       <BannerView
         codeId={'103115330'}
-        imageSize={{ width: 300, height: 200 }}
+        imageSize={{ width: 300, height: 250 }}
         style={styles.banner}
       />
     </View>
@@ -212,6 +212,5 @@ const styles = StyleSheet.create({
   banner: {
     width: 300,
     height: 200,
-    backgroundColor: 'red',
   },
 });

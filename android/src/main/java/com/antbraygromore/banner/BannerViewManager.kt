@@ -1,14 +1,13 @@
 package com.antbraygromore.banner
 
 import com.antbraygromore.banner.view.BannerView
-import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class BannerViewManager(reactContext: ReactApplicationContext) : ViewGroupManager<BannerView>() {
+class BannerViewManager() : ViewGroupManager<BannerView>() {
 
   override fun getName(): String {
     return NAME
@@ -34,8 +33,8 @@ class BannerViewManager(reactContext: ReactApplicationContext) : ViewGroupManage
   @ReactProp(name = "imageSize")
   fun setImageSize(view: BannerView, imageSize: ReadableMap) {
     if (imageSize.hasKey("width") && imageSize.hasKey("height")) {
-      val width = imageSize.getInt("width").toFloat()
-      val height = imageSize.getInt("height").toFloat()
+      val width = imageSize.getInt("width")
+      val height = imageSize.getInt("height")
       view.setImageSize(width, height)
     }
   }
