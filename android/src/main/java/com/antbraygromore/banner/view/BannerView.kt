@@ -42,7 +42,8 @@ class BannerView (context: ReactContext): FrameLayout(context) {
 
 
   init {
-    inflate(reactContext, R.layout.mediation_activity_banner, this)
+    inflate(reactContext, R.layout.banner_view_layout, this)
+    mBannerContainer = findViewById(R.id.banner_container)
   }
 
   // 创建广告请求AdSlot
@@ -74,10 +75,8 @@ class BannerView (context: ReactContext): FrameLayout(context) {
       Log.d(NAME,  "codeId 和 imageSize未设置")
       return
     }
-
     val ttAdManager: TTAdManager = TTAdManagerHolder.get()
     val adSlot = createAdSlot(_codeId)
-
     /** 2、创建TTAdNative对象 */
     mTTAdNative = ttAdManager.createAdNative(reactContext)
     /** 3、创建加载、展示监听器 */
@@ -85,14 +84,12 @@ class BannerView (context: ReactContext): FrameLayout(context) {
     mTTAdNative?.loadBannerExpressAd(adSlot,nativeExpressAdListener)
     Log.i(NAME, "loadAd")
   }
+
   private fun showAd() {
     if (mBannerAd == null) {
       Log.i(NAME, "请先加载广告或等待广告加载完毕后再调用show方法")
     } else{
       val activity = reactContext.currentActivity
-      // banner广告容器
-      mBannerContainer = findViewById(R.id.banner_container)
-
       // 确保广告容器视图已正确获取
       if (mBannerContainer == null) {
         Log.e(NAME, "Banner container view is not available")
@@ -105,21 +102,16 @@ class BannerView (context: ReactContext): FrameLayout(context) {
       mBannerAd!!.uploadDislikeEvent("mediation_dislike_event")
 
       /** 注意：使用融合功能时，load成功后可直接调用getExpressAdView获取广告view展示，而无需调用render等onRenderSuccess后  */
-      val bannerView = mBannerAd!!.expressAdView
+      val bannerView: View? = mBannerAd?.expressAdView //获取Banner View
       if (bannerView != null) {
         // 添加广告视图到广告容器
-        mBannerContainer!!.removeAllViews()
-        mBannerContainer!!.addView(bannerView)
-        mBannerAd!!.render()
+        mBannerContainer?.removeAllViews()
+        mBannerContainer?.addView(bannerView)
+
+//        mBannerAd!!.render()
       } else {
         Log.e(NAME, "Banner view is null")
       }
-    }
-  }
-  private fun _showTTAd() {
-    reactContext.currentActivity?.runOnUiThread {
-      initListeners()
-      mBannerAd?.render()
     }
   }
   private fun initListeners() {
@@ -158,18 +150,11 @@ class BannerView (context: ReactContext): FrameLayout(context) {
       }
 
       override fun onRenderFail(view: View?, msg: String?, code: Int) {
-        Log.e(NAME, "onRenderFail")
+        Log.e(NAME, "Render failed: $msg, code: $code")
       }
 
       override fun onRenderSuccess(view: View?, width: Float, height: Float) {
         Log.d(NAME, "onRenderSuccess - Width: $width, Height: $height")
-
-        mBannerContainer = findViewById(R.id.banner_container)
-        if (view != null) {
-          mBannerContainer?.removeAllViews();
-          mBannerContainer?.addView(view)
-        }
-//        onAdLayout(attr.width, attr.height)
       }
     }
 
@@ -196,32 +181,16 @@ class BannerView (context: ReactContext): FrameLayout(context) {
 
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
     super.onLayout(changed, l, t, r, b)
-    // Post adding the view to ensure layout is complete
     post {
       if (mBannerAd != null) {
         val bannerView = mBannerAd!!.expressAdView
         if (bannerView != null) {
-          val layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT
-          )
           mBannerContainer?.removeAllViews()
-          mBannerContainer?.addView(bannerView, layoutParams)
+          mBannerContainer?.addView(bannerView)
         }
       }
     }
   }
-
-  fun onAdLayout(width: Int, height: Int) {
-    Log.d(NAME, "onAdLayout: $width, $height")
-    val event = Arguments.createMap()
-    event.putInt("width", width)
-    event.putInt("height", height)
-    reactContext
-      .getJSModule(RCTEventEmitter::class.java)
-      .receiveEvent(id, "onAdLayout", event)
-  }
-
 
   fun setCodeId(codeId: String) {
     _codeId = codeId

@@ -36,7 +36,7 @@ class SplashModule(private val reactContext: ReactApplicationContext) : ReactCon
     }
   }
 
-  @ReactMethod
+    @ReactMethod
   fun showSplash(options: ReadableMap, promise: Promise) {
     val currentActivity: Activity? = reactContext.currentActivity
     if (currentActivity == null) {

@@ -10,6 +10,7 @@ import {
   type SplashParams,
   splashEventEmitter,
   BannerView,
+  startFullScreenVideo,
 } from 'react-native-antbray-gromore';
 import { AD_EVENT_TYPE } from '../../src/RewardVideo';
 import { SPLASH_EVENT_TYPE } from '../../src/Splash';
@@ -172,6 +173,13 @@ export default function App() {
     };
     startSplash(params);
   };
+
+  const openFullScreenVideo = () => {
+    const params = {
+      codeId: '103122140',
+    };
+    startFullScreenVideo(params);
+  };
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
@@ -188,12 +196,16 @@ export default function App() {
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
-
-      <BannerView
-        codeId={'103115330'}
-        imageSize={{ width: 300, height: 250 }}
-        style={styles.banner}
+      <Button
+        onPress={openFullScreenVideo}
+        title="插全屏"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
       />
+      {/*<BannerView*/}
+      {/*  codeId={'103115330'}*/}
+      {/*  imageSize={{ width: 300, height: 250 }}*/}
+      {/*/>*/}
     </View>
   );
 }

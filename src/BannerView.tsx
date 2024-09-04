@@ -57,11 +57,7 @@ const BannerView = (props: BannerAdProps) => {
           throw new Error(LINKING_ERROR);
         };
 
-  return (
-    <View style={{ ...styleObj }}>
-      <BannerViewManager codeId={codeId} imageSize={imageSize} />
-    </View>
-  );
+  return <BannerViewManager codeId={codeId} imageSize={imageSize} />;
 };
 
 export { BannerView };

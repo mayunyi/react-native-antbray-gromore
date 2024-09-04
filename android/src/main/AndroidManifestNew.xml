@@ -23,6 +23,7 @@
   <application>
     <activity android:name="com.antbraygromore.rewardVideo.activity.RewardVideoActivity" />
     <activity android:name="com.antbraygromore.splash.activity.SplashActivity" />
+    <activity android:name="com.antbraygromore.fullScreenVideo.active.FullScreenVideoActive" />
 
 
     <!-- 穿山甲 start================== -->
