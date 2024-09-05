@@ -5,6 +5,7 @@ import { BannerView } from './BannerView';
 import {
   startFullScreenVideo,
   type MediationFullScreenVideoParams,
+  type FULL_SCREEN_VIDEO_EVENT_TYPE,
 } from './FullScreenVideo';
 export {
   multiply,
@@ -16,4 +17,8 @@ export {
   startFullScreenVideo,
   BannerView,
 };
-export type { SplashParams, MediationFullScreenVideoParams };
+export type {
+  SplashParams,
+  MediationFullScreenVideoParams,
+  FULL_SCREEN_VIDEO_EVENT_TYPE,
+};

@@ -20,11 +20,19 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 
 class FullScreenVideoModule (private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext)  {
 
+  init {
+    instance = this
+  }
+
   override fun getName(): String {
     return NAME
   }
   companion object {
     const val NAME = "FullScreenVideoModule"
+    private var instance: FullScreenVideoModule? = null
+    fun getInstance(): FullScreenVideoModule? {
+      return instance
+    }
   }
 
   @ReactMethod
