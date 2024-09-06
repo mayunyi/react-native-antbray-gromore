@@ -11,5 +11,5 @@
     <color name="tt_trans_half_black">#FF1A1A1A</color>
 
     <color name="demo_draw_btn_back">#D33F57</color>
-    <color name="demo_white">#ffffff</color>
+    <color name="transparent">#00000000</color>
 </resources>

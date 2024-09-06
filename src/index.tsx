@@ -4,6 +4,7 @@ import { splashEventEmitter, startSplash, type SplashParams } from './Splash';
 import { BannerView } from './BannerView';
 import {
   startFullScreenVideo,
+  fullScreenEventEmitter,
   type MediationFullScreenVideoParams,
   type FULL_SCREEN_VIDEO_EVENT_TYPE,
 } from './FullScreenVideo';
@@ -15,6 +16,7 @@ export {
   startSplash,
   splashEventEmitter,
   startFullScreenVideo,
+  fullScreenEventEmitter,
   BannerView,
 };
 export type {

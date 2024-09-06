@@ -42,9 +42,8 @@ class FullScreenVideoActive: Activity() {
     setContentView(R.layout.mediation_activity_interstitial_full)
     try {
       val extras = intent.extras
-//      val codeId = extras!!.getString("codeId")
-      val codeId = "103123639"
-      muted = extras!!.getBoolean("muted")
+      val codeId = extras!!.getString("codeId")
+      muted = extras.getBoolean("muted")
       volume = extras.getFloat("volume")
       bidNotify = extras.getBoolean("bidNotify")
       orientation = extras.getInt("orientation")
@@ -111,6 +110,7 @@ class FullScreenVideoActive: Activity() {
         //广告加载成功
       }
 
+      @Deprecated("This method is deprecated, use onFullScreenVideoCached instead")
       override fun onFullScreenVideoCached() {
         //广告缓存成功，此回调已经废弃，请使用onFullScreenVideoCached(ad: TTFullScreenVideoAd?)
       }
@@ -124,7 +124,7 @@ class FullScreenVideoActive: Activity() {
 
   //展示插全屏广告
   fun showInterstitialFullAd( ad: TTFullScreenVideoAd) {
-    ad?.let {
+    ad.let {
       if (it.mediationManager.isReady) {
         it.setFullScreenVideoAdInteractionListener(object :
           TTFullScreenVideoAd.FullScreenVideoAdInteractionListener {
@@ -226,7 +226,7 @@ class FullScreenVideoActive: Activity() {
     }
     val result = EventResultImpl(
       status = EventResultStatus.INFO,
-      message = item.errorMsg,
+      message = "ecpm 信息",
       type = "onAdInfo",
       data = data.toString()
     )

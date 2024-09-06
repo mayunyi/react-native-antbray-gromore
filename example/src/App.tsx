@@ -180,6 +180,13 @@ export default function App() {
     };
     startFullScreenVideo(params);
   };
+  const openFullScreenVideo1 = () => {
+    const params = {
+      codeId: '103123639',
+    };
+    startFullScreenVideo(params);
+  };
+
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
@@ -202,10 +209,17 @@ export default function App() {
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
-      {/*<BannerView*/}
-      {/*  codeId={'103115330'}*/}
-      {/*  imageSize={{ width: 300, height: 250 }}*/}
-      {/*/>*/}
+
+      <Button
+        onPress={openFullScreenVideo1}
+        title="插半全屏"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+      <BannerView
+        codeId={'103115330'}
+        imageSize={{ width: 300, height: 250 }}
+      />
     </View>
   );
 }
