@@ -1,13 +1,13 @@
 import {
   type ViewStyle,
   UIManager,
-  StyleSheet,
   Platform,
   requireNativeComponent,
-  View,
   ActivityIndicator,
+  StyleSheet,
+  findNodeHandle,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isLoadCSJStatus } from './config';
 
 const LINKING_ERROR =
@@ -24,17 +24,26 @@ type BannerAdProps = {
 
 const ComponentName = 'BannerViewManager';
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    backgroundColor: 'red',
-  },
-});
+// const BannerViewManager =
+//   UIManager.getViewManagerConfig(ComponentName) != null
+//     ? requireNativeComponent<BannerAdProps>(ComponentName)
+//     : () => {
+//         throw new Error(LINKING_ERROR);
+//       };
+
+const BannerViewManager = requireNativeComponent(ComponentName);
+
+const createFragment = (viewId: number | null) =>
+  UIManager.dispatchViewManagerCommand(
+    viewId,
+    UIManager.BannerViewManager.Commands.create.toString(),
+    [viewId]
+  );
 
 const BannerView = (props: BannerAdProps) => {
-  const { style, codeId, imageSize } = props;
-  const styleObj = style ? style : styles.container;
+  const { codeId, imageSize } = props;
   const [initSdk, setInitSdk] = useState<boolean>(false);
+  const ref = useRef(null);
 
   useEffect(() => {
     const timer = setInterval(async () => {
@@ -47,18 +56,37 @@ const BannerView = (props: BannerAdProps) => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (initSdk) {
+      const viewId = findNodeHandle(ref.current);
+      createFragment(viewId!);
+    }
+  }, [initSdk]);
+
   if (!codeId) return null;
   if (!initSdk) return <ActivityIndicator size="large" color="#0000ff" />;
 
-  const BannerViewManager =
-    UIManager.getViewManagerConfig(ComponentName) != null
-      ? requireNativeComponent<BannerAdProps>(ComponentName)
-      : () => {
-          throw new Error(LINKING_ERROR);
-        };
-
-  return <BannerViewManager codeId={codeId} imageSize={imageSize} />;
+  return (
+    <BannerViewManager
+      codeId={codeId}
+      imageSize={imageSize}
+      style={styles.banner}
+      ref={ref}
+    />
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  banner: {
+    width: 300,
+    height: 250, // 设置 Banner 广告尺寸
+  },
+});
 
 export { BannerView };
 export type { BannerAdProps };

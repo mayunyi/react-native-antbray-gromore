@@ -8,6 +8,7 @@ import {
   type MediationFullScreenVideoParams,
   type FULL_SCREEN_VIDEO_EVENT_TYPE,
 } from './FullScreenVideo';
+import { AwesomeLibraryView } from './AwesomeLibraryView';
 export {
   multiply,
   initGroMore,
@@ -18,6 +19,7 @@ export {
   startFullScreenVideo,
   fullScreenEventEmitter,
   BannerView,
+  AwesomeLibraryView,
 };
 export type {
   SplashParams,

@@ -11,6 +11,7 @@ import {
   splashEventEmitter,
   BannerView,
   startFullScreenVideo,
+  AwesomeLibraryView,
 } from 'react-native-antbray-gromore';
 import { AD_EVENT_TYPE } from '../../src/RewardVideo';
 import { SPLASH_EVENT_TYPE } from '../../src/Splash';
@@ -25,62 +26,60 @@ export default function App() {
       debug: true,
       useMediation: true,
     });
-    const onAdErrorListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onAdError,
-      (event) => {
-        console.log('广告加载失败监听', event);
-      }
-    );
-    const onAdLoadedListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onAdLoaded,
-      (event) => {
-        console.log('广告加载成功监听', event);
-      }
-    );
-    const onAdClickListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onAdClick,
-      (event) => {
-        console.log('广告被点击监听', event);
-      }
-    );
-    const onAdCloseListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onAdClose,
-      (event) => {
-        console.log('广告关闭监听', event);
-      }
-    );
-    const onDYAuthListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onDYAuth,
-      (event) => {
-        console.log('抖音授权监听', event);
-      }
-    );
-    const onRewardArrivedListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onRewardArrived,
-      (event) => {
-        console.log('奖励发放监听', event);
-      }
-    );
-    const onAdShowListener = rewardVideoEventEmitter.addListener(
-      AD_EVENT_TYPE.onAdShow,
-      (event) => {
-        console.log('广告展示信息监听', event);
-      }
-    );
-
-    // 开屏监听
-    const splashListener = SplashListener();
+    // const onAdErrorListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onAdError,
+    //   (event) => {
+    //     console.log('广告加载失败监听', event);
+    //   }
+    // );
+    // const onAdLoadedListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onAdLoaded,
+    //   (event) => {
+    //     console.log('广告加载成功监听', event);
+    //   }
+    // );
+    // const onAdClickListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onAdClick,
+    //   (event) => {
+    //     console.log('广告被点击监听', event);
+    //   }
+    // );
+    // const onAdCloseListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onAdClose,
+    //   (event) => {
+    //     console.log('广告关闭监听', event);
+    //   }
+    // );
+    // const onDYAuthListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onDYAuth,
+    //   (event) => {
+    //     console.log('抖音授权监听', event);
+    //   }
+    // );
+    // const onRewardArrivedListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onRewardArrived,
+    //   (event) => {
+    //     console.log('奖励发放监听', event);
+    //   }
+    // );
+    // const onAdShowListener = rewardVideoEventEmitter.addListener(
+    //   AD_EVENT_TYPE.onAdShow,
+    //   (event) => {
+    //     console.log('广告展示信息监听', event);
+    //   }
+    // );
+    // // 开屏监听
+    // const splashListener = SplashListener();
     return () => {
-      onAdErrorListener.remove();
-      onAdLoadedListener.remove();
-      onAdLoadedListener.remove();
-      onAdClickListener.remove();
-      onAdCloseListener.remove();
-      onDYAuthListener.remove();
-      onRewardArrivedListener.remove();
-      onAdShowListener.remove();
-
-      removeSplashListener(splashListener);
+      // onAdErrorListener.remove();
+      // onAdLoadedListener.remove();
+      // onAdLoadedListener.remove();
+      // onAdClickListener.remove();
+      // onAdCloseListener.remove();
+      // onDYAuthListener.remove();
+      // onRewardArrivedListener.remove();
+      // onAdShowListener.remove();
+      // removeSplashListener(splashListener);
     };
   }, []);
 
@@ -190,36 +189,41 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
-      <Button
-        onPress={start}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+      {/*<Button*/}
+      {/*  onPress={start}*/}
+      {/*  title="Learn More"*/}
+      {/*  color="#841584"*/}
+      {/*  accessibilityLabel="Learn more about this purple button"*/}
+      {/*/>*/}
 
-      <Button
-        onPress={openSplash}
-        title="开屏"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
-      <Button
-        onPress={openFullScreenVideo}
-        title="插全屏"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+      {/*<Button*/}
+      {/*  onPress={openSplash}*/}
+      {/*  title="开屏"*/}
+      {/*  color="#841584"*/}
+      {/*  accessibilityLabel="Learn more about this purple button"*/}
+      {/*/>*/}
+      {/*<Button*/}
+      {/*  onPress={openFullScreenVideo}*/}
+      {/*  title="插全屏"*/}
+      {/*  color="#841584"*/}
+      {/*  accessibilityLabel="Learn more about this purple button"*/}
+      {/*/>*/}
 
-      <Button
-        onPress={openFullScreenVideo1}
-        title="插半全屏"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+      {/*<Button*/}
+      {/*  onPress={openFullScreenVideo1}*/}
+      {/*  title="插半全屏"*/}
+      {/*  color="#841584"*/}
+      {/*  accessibilityLabel="Learn more about this purple button"*/}
+      {/*/>*/}
+
       <BannerView
         codeId={'103115330'}
-        imageSize={{ width: 300, height: 250 }}
+        // imageSize={{ width: 300, height: 250 }}
+        // style={{ width: 300, height: 250 }}
       />
+      <View style={styles.container}>
+        <AwesomeLibraryView color="#32a852" style={styles.box} />
+      </View>
     </View>
   );
 }
@@ -236,7 +240,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   banner: {
-    width: 300,
-    height: 200,
+    width: 100,
+    height: 250,
   },
 });
