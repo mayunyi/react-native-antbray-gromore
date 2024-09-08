@@ -2,6 +2,7 @@ import { initGroMore, multiply } from './config';
 import { startRewardVideo, rewardVideoEventEmitter } from './RewardVideo';
 import { splashEventEmitter, startSplash, type SplashParams } from './Splash';
 import { BannerView } from './BannerView';
+import GroMoreBanner from './GroMoreBanner'
 import {
   startFullScreenVideo,
   fullScreenEventEmitter,
@@ -20,6 +21,7 @@ export {
   fullScreenEventEmitter,
   BannerView,
   AwesomeLibraryView,
+  GroMoreBanner,
 };
 export type {
   SplashParams,

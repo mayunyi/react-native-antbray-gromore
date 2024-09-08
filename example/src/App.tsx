@@ -15,6 +15,7 @@ import {
 } from 'react-native-antbray-gromore';
 import { AD_EVENT_TYPE } from '../../src/RewardVideo';
 import { SPLASH_EVENT_TYPE } from '../../src/Splash';
+import GroMoreBanner from '../../src/GroMoreBanner';
 
 export default function App() {
   const [result, setResult] = useState<number | undefined>();
@@ -216,11 +217,13 @@ export default function App() {
       {/*  accessibilityLabel="Learn more about this purple button"*/}
       {/*/>*/}
 
-      <BannerView
-        codeId={'103115330'}
-        // imageSize={{ width: 300, height: 250 }}
-        // style={{ width: 300, height: 250 }}
-      />
+      {/*<BannerView*/}
+      {/*  codeId={'103115330'}*/}
+      {/*  imageSize={{ width: 300, height: 250 }}*/}
+      {/*  style={{ width: 300, height: 250 }}*/}
+      {/*/>*/}
+
+      <GroMoreBanner mediaId={'103115330'} />
       <View style={styles.container}>
         <AwesomeLibraryView color="#32a852" style={styles.box} />
       </View>
