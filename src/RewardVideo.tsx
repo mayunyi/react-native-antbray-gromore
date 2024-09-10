@@ -1,7 +1,7 @@
 import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { RewardVideoModule } = NativeModules;
-
+console.log(NativeModules, 'RewardVideoModule');
 interface rewardVideoParams {
   codeId: string;
   rewardAmount?: number;

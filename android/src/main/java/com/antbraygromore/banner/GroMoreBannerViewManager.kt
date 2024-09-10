@@ -1,47 +1,76 @@
 package com.antbraygromore.banner
-
 import com.antbraygromore.banner.view.GroMoreBannerView
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.common.MapBuilder
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class GroMoreBannerViewManager : SimpleViewManager<GroMoreBannerView>() {
 
-  override fun getName(): String {
-    return "GroMoreBannerView"
-  }
+@ReactModule(name = "GroMoreBannerView") // 必须与 JavaScript 中使用的名称一致
+class GroMoreBannerViewManager(private val reactContext: ReactApplicationContext) : SimpleViewManager<GroMoreBannerView>() {
 
-  override fun createViewInstance(reactContext: ThemedReactContext): GroMoreBannerView {
-    return GroMoreBannerView(reactContext)
+  override fun getName() = "GroMoreBannerView"
+
+  override fun createViewInstance(themedReactContext: ThemedReactContext): GroMoreBannerView {
+    return GroMoreBannerView(themedReactContext)
   }
 
   @ReactProp(name = "mediaId")
-  fun setMediaId(view: GroMoreBannerView, mediaId: String) {
-    // 在这里可以保存 mediaId，等待加载广告时使用
+  fun setMediaId(view: GroMoreBannerView, mediaId: String?) {
+    view.mediaId = mediaId
   }
 
   @ReactProp(name = "width")
-  fun setWidth(view: GroMoreBannerView, width: Int) {
-    // 在这里可以保存 width，等待加载广告时使用
+  fun setWidth(view: GroMoreBannerView, width: Int?) {
+    width?.let { view.adWidth = it }
   }
 
   @ReactProp(name = "height")
-  fun setHeight(view: GroMoreBannerView, height: Int) {
-    // 在这里可以保存 height，等待加载广告时使用
+  fun setHeight(view: GroMoreBannerView, height: Int?) {
+    height?.let { view.adHeight = it }
   }
 
   @ReactProp(name = "muted")
-  fun setMuted(view: GroMoreBannerView, muted: Boolean) {
-    // 在这里可以保存 muted，等待加载广告时使用
+  fun setMuted(view: GroMoreBannerView, muted: Boolean?) {
+    muted?.let { view.muted = it }
   }
 
-  @ReactProp(name = "options")
-  fun setOptions(view: GroMoreBannerView, options: ReadableMap) {
-    // 在这里可以保存 options，等待加载广告时使用
+  @ReactProp(name = "useSurfaceView")
+  fun setUseSurfaceView(view: GroMoreBannerView, useSurfaceView: Boolean?) {
+    useSurfaceView?.let { view.useSurfaceView = it }
   }
 
-  fun loadAd(view: GroMoreBannerView, mediaId: String, options: ReadableMap) {
-    view.loadAd(mediaId, options)
+  @ReactProp(name = "extra")
+  fun setExtra(view: GroMoreBannerView, extra: ReadableMap?) {
+    view.extra = extra
+  }
+
+  @ReactProp(name = "showCloseBtn")
+  fun setShowCloseBtn(view: GroMoreBannerView, showCloseBtn: Boolean?) {
+    showCloseBtn?.let { view.showCloseBtn = it }
+  }
+
+  override fun getCommandsMap(): Map<String, Int>? {
+    return MapBuilder.of("loadAd", COMMAND_LOAD_AD)
+  }
+
+  override fun receiveCommand(root: GroMoreBannerView, commandId:Int, args: ReadableArray?) {
+    when (commandId) {
+      COMMAND_LOAD_AD -> {
+        val mediaId = args?.getString(0)
+        val options = args?.getMap(1)
+        if (mediaId != null && options != null) {
+          root.loadAd(mediaId, options)
+        }
+      }
+    }
+  }
+
+  companion object {
+    private const val COMMAND_LOAD_AD = 1
   }
 }

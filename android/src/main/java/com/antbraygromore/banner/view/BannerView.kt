@@ -3,12 +3,8 @@ package com.antbraygromore.banner.view
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
-import android.view.Gravity
-import android.view.ViewGroup
 
 import android.widget.FrameLayout
-import android.widget.TextView
-import com.antbraygromore.utils.UIUtils.dp2px
 
 class BannerView (context: Context) : FrameLayout(context) {
 

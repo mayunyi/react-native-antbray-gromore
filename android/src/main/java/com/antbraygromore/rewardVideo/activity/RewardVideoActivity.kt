@@ -45,7 +45,7 @@ class RewardVideoActivity: Activity()  {
       mTTAdNative = ttAdManager.createAdNative(this)
 
       if (codeId != null) {
-        loadRewardAd(codeId, this)
+        loadRewardAd(codeId)
       } else {
         Log.e(NAME, "codeId is null")
       }
@@ -70,7 +70,7 @@ class RewardVideoActivity: Activity()  {
   }
 
   //加载激励视频
-  private fun loadRewardAd(codeId: String, act: Activity) {
+  private fun loadRewardAd(codeId: String) {
     val adSlot = createAdSlot(codeId)
 
     //step6:注册广告加载生命周期监听，请求广告

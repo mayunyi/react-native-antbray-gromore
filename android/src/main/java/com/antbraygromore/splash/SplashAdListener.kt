@@ -28,7 +28,7 @@ class SplashAdListener(activity: SplashActivity): CSJSplashAd.SplashAdListener  
   }
 
   fun printShowInfo(csjSplashAd: CSJSplashAd) {
-    val mediationManager = csjSplashAd?.mediationManager
+    val mediationManager = csjSplashAd.mediationManager
     if (mediationManager != null) {
       val showEcpm = mediationManager.showEcpm
       if (showEcpm != null) {

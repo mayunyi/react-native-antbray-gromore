@@ -1,18 +1,12 @@
 package com.antbraygromore.banner
 
-import android.util.Log
 import android.view.Choreographer
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentActivity
 import com.antbraygromore.banner.activity.BannerFragment
-import com.antbraygromore.config.TTAdManagerHolder
-import com.antbraygromore.utils.UIUtils.dp2px
-import com.bytedance.sdk.openadsdk.AdSlot
-import com.bytedance.sdk.openadsdk.TTAdDislike
-import com.bytedance.sdk.openadsdk.TTAdNative
-import com.bytedance.sdk.openadsdk.TTNativeExpressAd
+
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap

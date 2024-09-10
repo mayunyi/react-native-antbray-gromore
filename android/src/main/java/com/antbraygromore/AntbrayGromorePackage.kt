@@ -25,6 +25,6 @@ class AntbrayGromorePackage : ReactPackage {
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-    return listOf(BannerViewManager(reactContext), AwesomeLibraryViewManager(), GroMoreBannerViewManager())
+    return listOf(BannerViewManager(reactContext), AwesomeLibraryViewManager(), GroMoreBannerViewManager(reactContext))
   }
 }

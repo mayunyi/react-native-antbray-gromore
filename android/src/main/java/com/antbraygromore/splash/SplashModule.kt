@@ -74,18 +74,22 @@ class SplashModule(private val reactContext: ReactApplicationContext) : ReactCon
     }
     if (options.hasKey("mediationSplashRequestInfo")) {
       val mediationSplashRequestInfo = options.getMap("mediationSplashRequestInfo")
-      val mediationSplashRequestInfoJson = mediationSplashRequestInfo?.toHashMap()?.let { JSONObject(
-        it as Map<*, *>?
-      ).toString() }
+      val mediationSplashRequestInfoJson = mediationSplashRequestInfo?.toHashMap()?.let {
+        (it as Map<*, *>?)?.let { it1 ->
+          JSONObject(
+            it1
+          ).toString()
+        }
+      }
       intent.putExtra("mediationSplashRequestInfo", mediationSplashRequestInfoJson)
     }
 
-    val options = ActivityOptionsCompat.makeCustomAnimation(
+    val optionsSplash = ActivityOptionsCompat.makeCustomAnimation(
       reactContext,
       android.R.anim.fade_in,
       android.R.anim.fade_out
     );
-    ActivityCompat.startActivityForResult(currentActivity, intent, 100, options.toBundle());
+    ActivityCompat.startActivityForResult(currentActivity, intent, 100, optionsSplash.toBundle());
   }
 
   // 发生给RN的事件

@@ -46,12 +46,12 @@ class RewardVideoModule(private val reactContext: ReactApplicationContext) : Rea
         val intent = Intent(currentActivity, RewardVideoActivity::class.java);
         intent.putExtra("codeId", options.getString("codeId"));
 
-        val options = ActivityOptionsCompat.makeCustomAnimation(
+        val optionsReward = ActivityOptionsCompat.makeCustomAnimation(
           reactContext,
           android.R.anim.fade_in,
           android.R.anim.fade_out
         );
-        ActivityCompat.startActivityForResult(currentActivity, intent, 100, options.toBundle());
+        ActivityCompat.startActivityForResult(currentActivity, intent, 100, optionsReward.toBundle());
     }
 
 
